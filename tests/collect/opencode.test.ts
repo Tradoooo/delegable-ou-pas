@@ -31,6 +31,9 @@ const LOGIN = basename(homedir());
 const MOTIF_EMAIL = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/;
 const MOTIF_ID_SESSION = /\b(?:ses|msg|prt)_[A-Za-z0-9]{6,}/;
 
+/** Comptes de CI : leur login n'identifie personne, donc n'est pas une donnée personnelle. */
+const COMPTES_GENERIQUES = new Set(['runner', 'github', 'actions', 'root', 'ubuntu']);
+
 /** Une session de fixture : trois agents, trois modèles, des durées vraies. */
 function fixture(part: Partial<OpenCodeSession>): OpenCodeSession {
   return {
@@ -293,8 +296,16 @@ describe('le jeu de données versionné', () => {
   });
 
   it('ne contient aucune donnée personnelle', () => {
-    expect(brut).not.toContain(LOGIN);
     expect(brut).not.toContain('/home/');
+    expect(brut).not.toContain('/Users/');
+    if (!COMPTES_GENERIQUES.has(LOGIN)) {
+      // Le jeu a été récolté sur une machine personnelle : le login de son
+      // propriétaire n'y a pas sa place. Sur un compte de runner générique
+      // ce « login » n'identifie personne et il collide avec les titres
+      // légitimes (« Inventaire runners r630 ») — la comparaison serait un
+      // faux positif, pas une protection.
+      expect(brut).not.toContain(LOGIN);
+    }
     expect(brut).not.toMatch(MOTIF_EMAIL);
     expect(brut).not.toMatch(MOTIF_ID_SESSION);
     expect(dataset.sessions.every((session) => /^oc_[0-9a-f]{16}$/.test(session.id))).toBe(true);
