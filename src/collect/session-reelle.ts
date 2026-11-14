@@ -2,7 +2,7 @@
  * La session unifiée : la forme que prend une session d'agent, quel que soit
  * le client qui l'a exécutée (OpenCode, Claude Code, Codex…).
  *
- * Le contrat est dans `docs/CONTRACTS-REALITE.md`. Ce module en est la
+ * Le contrat est dans `docs/CONTRATS-REALITE.md`. Ce module en est la
  * version de code : un seul vocabulaire pour toute la donnée réelle, et la
  * règle qui compte — **absent = `-1`, jamais `0`**. Zéro veut dire « mesuré,
  * valait zéro » ; `-1` veut dire « on ne sait pas », et c'est une conclusion

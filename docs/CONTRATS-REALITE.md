@@ -100,7 +100,8 @@ acceptable si elle est **marquée** (`attribution: 'fenetre'`), et refusée sino
   `couche0` refuse sinon.
 - **Jamais de merge manuel** : la file Mergify merge seule ; le balayeur
   `pr-auto-merge` rebase et résout les conflits.
-- **Jamais de push sur `main`**, jamais de `--force` (sauf `--force-with-lease`).
+- **Jamais de push sur `main`**, jamais de push forcé : seul `--force-with-lease`
+  est admis.
 - Les fichiers générés (`src/sample/opencode-real.json`, `site/demo-data.json`)
   sont **hors périmètre** des lots : ils sont régénérés à la fin, une fois,
   par le lot d'intégration.
