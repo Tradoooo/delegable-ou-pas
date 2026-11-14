@@ -24,10 +24,10 @@ function demonstration(): Demonstration {
 }
 
 describe('le site public sur la base', () => {
-  it('couvre les 35 panneaux : 8 écrans et 27 fonctionnalités', () => {
+  it('couvre les 36 panneaux : 8 écrans et 28 fonctionnalités', () => {
     const donnee = demonstration();
     expect(Object.keys(donnee.ecrans)).toHaveLength(8);
-    expect(Object.keys(donnee.features)).toHaveLength(27);
+    expect(Object.keys(donnee.features)).toHaveLength(28);
     expect(donnee.mcp).toBeTruthy();
   });
 
